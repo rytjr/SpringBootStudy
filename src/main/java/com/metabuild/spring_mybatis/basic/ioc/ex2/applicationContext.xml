@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <bean id = "mbKo" class = "com.metabuild.spring_mybatis.basic.ioc.ex2.MessageBeanKo"/>
+    <!--
+        MessageBean mbKo = MessageBeanKo();와 동일
+    -->
+
+    <bean id = "mbEn" class = "com.metabuild.spring_mybatis.basic.ioc.ex2.MessageBeanEn"/>
+
+</beans>
