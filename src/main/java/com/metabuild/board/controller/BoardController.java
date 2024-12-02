@@ -45,13 +45,23 @@ public class BoardController {
 
         //1. 총 게시글 수 가져오기
         int totalCount = boardService.getTotalCount(paging);
+        paging.setTotalCount(totalCount);
+        paging.setPageSize(5);  //한 페이지 당 보여줄 목록 개수 5로 설정
+        paging.init(); //페이징 처리 관련 연산을 수행하는 메서드 호출
         //2. 게시글 가져오기
         List<BoardDTO> boardList = boardService.listBoard(paging);
 
+        //3.페이징 처리 문자열 받아오기
+        String myctx = "", loc = "board/list";
+        String pageStr = paging.getPageNavi(myctx,loc);
+
         model.addAttribute("totalCount", totalCount);
         model.addAttribute("boardList",boardList);
+        model.addAttribute("paging", paging);
+        model.addAttribute("pageNavi", pageStr);
 
-        return "board/list";
+//        return "board/list2";   //jsp에서 페이지 네비게이션 구현
+        return "board/list3";     //자바로 페이지 네비게이션 구현
     }
 
     @PostMapping("/write")
@@ -60,6 +70,10 @@ public class BoardController {
         log.info("dto===={}, boardService---{}", dto,boardService);
 
         //1. 유효성 체크
+        if(dto.getTitle().trim().isEmpty() || dto.getUserId().trim().isEmpty()
+                || dto.getPwd().trim().isEmpty()) {
+            return "redirect:form";
+        }
 
         //2. 파일 업로드
         File dir = new File(uploadDir);
@@ -106,6 +120,9 @@ public class BoardController {
         int n = 0;
         //3. 글쓰기(mode = write) 또는 글수정(mode = edit)
         if(dto.getMode().equals("write")) {
+//            for(int i = 0; i < 10; i++) {
+//                n = boardService.insertBoard(dto);
+//            }
             n = boardService.insertBoard(dto);
             str = (n > 0) ? "글쓰기 성공" : "글쓰기 실패";
             loc = (n > 0) ? "list" : "javascript:history.back()";
@@ -170,21 +187,44 @@ public class BoardController {
     public String deleteForm(BoardDTO dto, Model model) {
 
         int id = dto.getId();
+        String pwd = dto.getPwd();
 
         BoardDTO board = boardService.findById(id);
 
-        if(board.getPwd().equals(dto.getPwd())) {
+        if(board == null) {
+            model.addAttribute("message","해당 글은 없습니다");
+            model.addAttribute("loc","javascript:history.back()");
+            return "message";
+        }
+
+        if(!board.getPwd().equals(pwd)) {
             model.addAttribute("message", "비밀번호가 올바르지 않습니다.");
             model.addAttribute("loc","javascript:history.back()");
             return "message";
         }
 
-        if(dto.getFileName() != null) {
-        }
-
+        //해당 글 삭제
         int n = boardService.deleteBoard(id);
 
-        return "/board/list";
+        //기존에 업로드했던 파일이 있다면 삭제 처리
+        if(n > 0) {
+            if(board.getFileName() != null) {
+                File tmp = new File(uploadDir, board.getFileName());
+                if(tmp.exists()) {
+                    boolean b = tmp.delete();   //파일 삭제 처리
+                    log.info("예전 첨부파일 삭제 여부 == {}" , b);
+                }
+            }
+        }
+
+
+
+        String str = (n > 0) ? "삭제 성공" : "삭제 실패";
+        String loc = (n > 0) ? "list" : "javascript:history.back()";
+
+//        model.addAttribute("message",str);
+//        model.addAttribute("loc",loc);
+        return "redirect:list";
     }
 
 }

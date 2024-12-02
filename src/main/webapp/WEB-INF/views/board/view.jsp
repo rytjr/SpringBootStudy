@@ -9,6 +9,12 @@
   <title>board view</title>
 </head>
 <body>
+    <c:if test = "${board eq null}">
+        <script>
+            alert("해당 글은 존재하지 않습니다")
+            location.href="list";
+        </script>
+    </c:if>
     <div class = "col-10 offset-1 py-4">
         <h1 class = "text-center">Spring Board View</h1>
         <div class = "text-center">

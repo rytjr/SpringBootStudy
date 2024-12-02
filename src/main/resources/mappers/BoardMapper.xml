@@ -12,12 +12,39 @@
             ,#{originFileName:VARCHAR},#{fileSize:NUMERIC},0)
     </insert>
 
+    <sql id = "findWhere">
+        <if test = "findType != '' and findKeyword != ''">
+            <where>
+                <if test="findType == 1">
+                    title like '%' || #{findKeyword} || '%'
+                </if>
+                <if test="findType == 2">
+                    userId like '%' || #{findKeyword} || '%'
+                </if>
+                <if test="findType == 3">
+                    content like '%' || #{findKeyword} || '%'
+                </if>
+            </where>
+        </if>
+    </sql>
+
     <select id = "listBoard" resultType = "Board" parameterType = "Paging">
-        select * from board order by id desc
+<!--        select * from board order by id desc-->
+        select * from(
+        select rownum rn, a.* from
+        (select * from board
+        <include refid = "findWhere"/>
+        order by id desc) a
+        )
+        <!-- CDATA SECION으로 감싸자. 부등호를 태그로 인식하지 말고 character data로 인식하라는 의미임 -->
+        <![CDATA[
+        where rn > #{start} and rn < #{end}
+        ]]>
     </select>
 
     <select id = "getTotalCount" resultType = "_int" parameterType = "Paging">
         select count(id) from board
+        <include refid = "findWhere"/>
     </select>
 
 <!--    조회수 증가-->

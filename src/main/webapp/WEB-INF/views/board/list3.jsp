@@ -51,12 +51,27 @@
 <body>
     <div class = "col-10 offset-1 py-4">
         <h1 class = "text-center my-3">Spring Board List</h1>
+        <c:if test = "${paging.findKeyword != ''}">
+            <h3 class = "text-center text-primary">검색어:<c:out value="${paging.findKeyword}"/></h3>
+        </c:if>
         <br>
         <div class = "text-center">
             <a href = "form">글쓰기</a> | <a href = "/main">Home</a>
         </div>
         <!--검색 form ----------------------------------------------------------------->
-
+        <div id = "divFind" class = "text-center py-4 my-4">
+            <form name = "findF" id = "findF" action = "list">
+                <select name = "findType" id = "findType" style = "padding:5px">
+                    <option value = "0">::검색 유형::</option>
+                    <option value = "1"    <c:if test = "${paging.findType eq 1}">SELECTED</c:if>    >제 목</option>
+                    <option value = "2"    <c:if test = "${paging.findType eq 2}">SELECTED</c:if>    >작성자</option>
+                    <option value = "3"    <c:if test = "${paging.findType eq 3}">SELECTED</c:if>    >글내용</option>
+                </select>
+                <input type = "text" name = "findKeyword" id = "findKeyword" placeholder = "검색어를 입력하세요"
+                        required style = "padding:4px">
+                <button class = "btn btn-info">검 색</button>
+            </form>
+        </div>
         <!--검색 form ----------------------------------------------------------------->
         <ul class = "boardList">
             <li>글번호</li>
@@ -95,13 +110,11 @@
         <div class = "clear"></div>
         <div class = "divTotal">
             <span>총 게시글 수 : ${totalCount}개</span>
-            <span>  1 page / 3 pages </span>
+            <span>  <b style = "color:red">${paging.pageNum}</b> page / ${paging.pageCount} pages </span>
         </div>
         <div class = "pageNavi text-center">
-            <!-- 페이지 네비게이션(페이징 블럭 처리 안 할 경우) -->
-            <c:forEach var = "i" begin = "1" end = "${paging.pageCount}">
-                <a href = "list?pageNum=${i}">[<c:out value = "${i}"/>]</a>
-            </c:forEach>
+            <!-- 여기에 페이지 네비게이션 문자열 들어올 예정 -->
+            ${pageNavi}
         </div>
     </div><!-- .col end -->
 </body>
