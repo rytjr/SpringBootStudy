@@ -55,6 +55,13 @@ public class PagingDTO {
         )
         where rn > 0 and rn < 6*/
 
+        //mysql일 경우
+        limit = pageSize;
+        offset = (pageNum - 1) * pageSize;
+        /*
+        * select * from board order by id desc limit 5 offset 0
+        * */
+
         prevBlock = (pageNum - 1) / pagingBlock * pagingBlock;
         nextBlock = prevBlock + pagingBlock + 1;
     }

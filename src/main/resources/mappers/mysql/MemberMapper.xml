@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper
+3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.metabuild.user.mapper.MemberMapper">
+    <!--네임스페이스를 MemberMapper인터페이스 full name으로 기술해야 함 -->
+
+    <select id="getMemberCount" resultType = "int">
+        <!--id 값은 MemberMapper 인터페이스의 메서드명이 되어야 한다. -->
+        select count(*) from member
+    </select>
+
+<!--    com.metabuild.user.domain.MemberDTO ==> 별칭을 Member로 지정 mybatis-config에서 함-->
+    <insert id = "insertMember" parameterType = "Member">
+        insert into member(name,userId,passwd,hp1,hp2,hp3)
+        values(#{name},#{userId},#{passwd},
+<!--        null을 허용한 경우 jdbc type을 기술해야 함 VARCHAR, CHAR, NUMERIC  ==> jdbc type-->
+<!--        #{name} <===>   user.getName() -->
+        #{hp1 : CHAR},#{hp2 : CHAR}, #{hp3 : CHAR})
+    </insert>
+
+    <select id="listMember" resultType = "Member">
+<!--        resultType에 List<MemberDTO> 재너릭타입을 기술-->
+        select no,name,userId,passwd,indate,hp1,hp2,hp3 from member order by no desc
+    </select>
+
+    <delete id="deleteMember" parameterType="_int">
+        DELETE FROM member WHERE no = #{no}
+    </delete>
+
+    <select id = "findByUserId" parameterType = "string" resultType = "Member">
+        select * from member where userId = #{userId}
+    </select>
+</mapper>

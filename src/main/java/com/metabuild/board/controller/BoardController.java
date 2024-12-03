@@ -120,9 +120,9 @@ public class BoardController {
         int n = 0;
         //3. 글쓰기(mode = write) 또는 글수정(mode = edit)
         if(dto.getMode().equals("write")) {
-//            for(int i = 0; i < 10; i++) {
-//                n = boardService.insertBoard(dto);
-//            }
+            for(int i = 0; i < 30; i++) {
+                n = boardService.insertBoard(dto);
+            }
             n = boardService.insertBoard(dto);
             str = (n > 0) ? "글쓰기 성공" : "글쓰기 실패";
             loc = (n > 0) ? "list" : "javascript:history.back()";

@@ -8,6 +8,9 @@
         <typeAlias type="com.metabuild.user.domain.MemberDTO" alias="Member"/>
         <typeAlias type="com.metabuild.board.domain.BoardDTO" alias="Board"/>
         <typeAlias type="com.metabuild.board.domain.PagingDTO" alias="Paging"/>
+        <typeAlias type="com.metabuild.shop.domain.ProductDTO" alias="Product"/>
+        <typeAlias type="com.metabuild.shop.domain.CategoryDTO" alias="Category"/>
+        <typeAlias type="com.metabuild.shop.domain.CartDTO" alias="Cart"/>
     </typeAliases>
     <!--
     <typeAliases>

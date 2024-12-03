@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 // 클래스의 객체를 스프링이 자동으로 메모리에 올려줌
 @ComponentScan(basePackages = {"com.metabuild", "com.metabuild.spring_mybatis"})
 //XXXXMapper 인터페이스가 있는 패키지를 @MapperScan에 추가하자
-@MapperScan(basePackages = {"com.metabuild.user.mapper","com.metabuild.board.mapper"})
+@MapperScan(basePackages = {"com.metabuild.user.mapper","com.metabuild.board.mapper","com.metabuild.shop.mapper"})
 public class SpringMybatisApplication {
 
 	public static void main(String[] args) {

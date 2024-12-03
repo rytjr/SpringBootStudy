@@ -1,0 +1,45 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<h2 class = "text-danger my-4">HIT 상품</h2>
+<div class = "row mt-5">
+<c:if test = "${hitItems eq null or empty hitItems}">
+    <div class = "col-3 text-center">
+        <h4>상품 준비중</h4>
+    </div>
+</c:if>
+<c:if test = "${hitItems ne null and not empty hitItems}">
+    <c:forEach var = "item" items = "${hitItems}" begin = "0" end = "7" varStatus = "state">
+    <%-- varStatus : 반복문의 상태정보를 담을 변수를 지정
+            반목문 횟수 : ${state.count}
+            반복문 인뎃스 : ${state.index}
+            <h4>반복문 횟수 : 반목문 횟수 : ${state.count} / 반복문 인뎃스 : ${state.index}</h4>
+     --%>
+        <div class = "col-3 text-center">
+            <c:choose>
+                <c:when test = "${item.pimage1 ne null}">
+            <a href = "prodDetail?pnum=<c:out value = '${item.pnum}'/>"><img src = "/product_images/${item.pimage1}"
+                    alt = "${item.pname}" class = "img-fluid" style = "width:180px;height:180px;object-fit:contain"></a>
+                </c:when>
+                <c:otherwise>
+                <a href = "prodDetail?pnum=<c:out value = '${item.pnum}'/>"><img src = "/product_images/noimage.PNG"
+                        alt = "${item.pname}" class = "img-fluid" style = "width:180px;height:180px;object-fit:contain"></a>
+                </c:otherwise>
+            </c:choose>
+            <br><br>
+            <h4><c:out value = "${item.pname}" /></h4>
+            <del>
+            ${item.price}
+            </del><br>
+            <span class = "text-danger">${item.salePrice}원</span><br>
+            <span class = "badge bg-danger">${item.percent} %</span><br>
+            <span class = "badge bg-success">${item.point} Point</span>
+        </div>  <!-- col-3.end -->
+        <c:if test = "${state.count mod 4 == 0}">
+        <!-- 행을 닫고 새로운 행을 시작 -->
+            </div>
+            <div class = "row mt-5">
+        </c:if>
+    </c:forEach>
+</c:if>
+</div>  <!-- row.end -->

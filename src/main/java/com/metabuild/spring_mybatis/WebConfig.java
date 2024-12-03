@@ -38,5 +38,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:///c:/Lecture/devSource/upload/");   //실제 파일 저장 경로
         //브라우저에서 접근할 떄는
         //http://localhost:8080/upload/파일명
+
+        registry.addResourceHandler("/product_images/**")
+                .addResourceLocations("file:///c:/Lecture/devSource/product_images/");
     }
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.metabuild.board.mapper.BoardMapper">
+
+    <insert id = "insertBorad" parameterType = "Board" useGeneratedKeys = "true" keyProperty = "id">
+
+        insert into board(userId,title,content,pwd,fileName,originFileName,fileSize,readNum)
+        values(#{userId},#{title},#{content:VARCHAR},#{pwd},#{fileName:VARCHAR}
+            ,#{originFileName:VARCHAR},#{fileSize:INTEGER},0)
+    </insert>
+
+    <sql id = "findWhere">
+        <if test = "findType != '' and findKeyword != ''">
+            <where>
+                <if test="findType == 1">
+                    title like concat('%', #{findKeyword},'%')
+                </if>
+                <if test="findType == 2">
+                    userId like concat('%', #{findKeyword},'%')
+                </if>
+                <if test="findType == 3">
+                    content like concat('%', #{findKeyword},'%')
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <select id = "listBoard" resultType = "Board" parameterType = "Paging">
+<!--        select * from board order by id desc-->
+        select * from board
+            <include refid = "findWhere"/>
+        order by id desc limit #{limit} offset #{offset};
+
+    </select>
+
+    <select id = "getTotalCount" resultType = "_int" parameterType = "Paging">
+        select count(id) from board
+        <include refid = "findWhere"/>
+    </select>
+
+<!--    조회수 증가-->
+    <update id = "updateReadNum" parameterType = "_int">
+<!--        update board set readnum=readnum + 1 where id=#{id}-->
+        update board
+        <set>
+            readnum = readnum + 1
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <select id = "findById" parameterType = "_int" resultType = "Board">
+        select * from board
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <update id = "updateBoard" parameterType = "Board">
+        update board
+        <set>
+            title=#{title}, content=#{content:VARCHAR}, pwd=#{pwd}, userId=#{userId}
+            <if test = "fileName != null and fileName != ''">
+                ,fileName=#{fileName}, fileSize=#{fileSize}, originFileName=#{originFileName}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <delete id = "deleteBoard" parameterType = "_int">
+        delete from board
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+
+</mapper>
