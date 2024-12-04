@@ -34,7 +34,18 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public int addCart(CartDTO cartDTO) {
-        return 0;
+        //1. 회원 아이디와 상품번호로 cart 테이블에 담겨있는 상품 개수 가져오기
+        int cnt = cartMapper.selectCartCountByPnum(cartDTO);
+
+        //1.1 이미 담겨있는 상품이라면 ==> 수량만 수정
+        int n = 0;
+        if(cnt > 0) {
+            n = cartMapper.updateCartQty(cartDTO);
+        }else {
+            //1.2 담겨있는 상품이 아니라면 ==> 장바구니에 상품을 추가(insert)
+            n = cartMapper.addCart(cartDTO);
+        }
+        return n;
     }
 
     @Override
@@ -44,17 +55,28 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public int editCart(CartDTO cartDTO) {
-        return 0;
+        int qty = cartDTO.getPqty();
+        //수량이 음수일 경우  ==> 예외발생
+        if(qty < 0) {
+            throw new NumberFormatException("수량은 양수 값을 입력해야 해요");
+        } else if(qty == 0) {
+            //수량이 0인 경우   ==> 삭제 처리
+            return this.delCart(cartDTO.getCnum());
+        }else {
+            //수량이 양수인 경우  ==> 수정처리
+            int n = cartMapper.editCart(cartDTO);
+            return n;
+        }
     }
 
     @Override
     public List<CartDTO> findCartView(String userid) {
-        return List.of();
+        return cartMapper.selectCartView(userid);
     }
 
     @Override
     public int delCart(int cartNum) {
-        return 0;
+        return cartMapper.delCart(cartNum);
     }
 
     @Override
@@ -69,6 +91,6 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public CartDTO getCartTotal(String userid) {
-        return null;
+        return cartMapper.getCartTotal(userid);
     }
 }

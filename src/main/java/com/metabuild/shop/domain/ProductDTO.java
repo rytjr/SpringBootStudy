@@ -11,9 +11,12 @@ public class ProductDTO {
 
     private int pnum;
     private String pname;
-    private String Pimage1;
-    private String Pimage2;
-    private String Pimage3;
+    private String pimage1;
+    private String pimage2;
+    private String pimage3;
+    private String pimage1Fn;
+    private String pimage2Fn;
+    private String pimage3Fn;
 
     private int price;  //정가
     private int salePrice; // 판매가

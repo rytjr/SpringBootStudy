@@ -22,9 +22,27 @@
         <selectKey keyProperty = "pnum" resultType = "_int" order = "BEFORE">
             select product_seq.nextval from dual
         </selectKey>
-        insert into product(pnum, pname, pimage1, pimage2, pimage3, price, salePrice, pqty, point, pspec, pcontents, pcompany, pdate, cg_code)
-        values(#{pnum}, #{pname}, #{pimage1:VARCHAR}, #{pimage2:VARCHAR}, #{pimage3:VARCHAR}, #{price}, #{salePrice}, #{pqty}, #{point:NUMERIC}, 'NEW', #{pcontents:VARCHAR}, #{pcompany:VARCHAR}, #{pdate:DATE}, #{cg_code:NUMERIC})
+        insert into product(pnum, pname, pimage1, pimage2, pimage3,pimage1Fn,pimage2Fn,pimage3Fn, price, salePrice, pqty, point, pspec, pcontents, pcompany, pdate, cg_code)
+        values(#{pnum}, #{pname}, #{pimage1:VARCHAR}, #{pimage2:VARCHAR}, #{pimage3:VARCHAR}, #{pimage1Fn:VARCHAR}, #{pimage2Fn:VARCHAR}, #{pimage3Fn:VARCHAR}, #{price}, #{salePrice}, #{pqty}, #{point:NUMERIC}, 'NEW', #{pcontents:VARCHAR}, #{pcompany:VARCHAR}, #{pdate:DATE}, #{cg_code:NUMERIC})
     </insert>
+
+    <select id="findProduct" parameterType = "Product" resultType = "Product">
+        select * from product
+    </select>
+
+    <delete id="deleteProduct" parameterType = "_int">
+        delete from product
+        <where>
+            pnum = #{pnum}
+        </where>
+    </delete>
+
+    <select id="findByPnum" parameterType = "_int" resultType = "Product">
+        select * from product
+        <where>
+            pnum = #{pnum}
+        </where>
+    </select>
 
 </mapper>
 

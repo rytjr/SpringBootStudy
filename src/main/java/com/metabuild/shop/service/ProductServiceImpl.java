@@ -5,6 +5,8 @@ import com.metabuild.shop.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductServie {
@@ -18,7 +20,7 @@ public class ProductServiceImpl implements ProductServie {
 
     @Override
     public ProductDTO findByPnum(int pnum) {
-        return null;
+        return productMapper.findByPnum(pnum);
     }
 
     @Override
@@ -28,6 +30,11 @@ public class ProductServiceImpl implements ProductServie {
 
     @Override
     public int deleteProduct(int pnum) {
-        return 0;
+        return productMapper.deleteProduct(pnum);
+    }
+
+    @Override
+    public List<ProductDTO> findProduct(ProductDTO pdto) {
+        return productMapper.findProduct(pdto);
     }
 }

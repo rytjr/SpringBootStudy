@@ -62,6 +62,10 @@
               <a class="nav-link" href="/admin/product">ProRegis</a>
             </li>
 
+           <li class="nav-item">
+              <a class="nav-link" href="/admin/productList">Product List</a>
+            </li>
+
              <li class="nav-item">
               <a class="nav-link" href="/auth/myPage">MyPage</a>
             </li>

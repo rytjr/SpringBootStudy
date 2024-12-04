@@ -3,4 +3,94 @@
 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.metabuild.shop.mapper.CartMapper">
+
+    <select id="selectCartCountByPnum" parameterType = "Cart" resultType = "_int">
+        select count(cnum) from cart
+        <where>
+            userId = #{userId} and pnum = #{pnum}
+        </where>
+    </select>
+
+    <insert id="addCart" parameterType = "Cart">
+        <selectKey keyProperty="cnum" resultType = "_int" order="BEFORE">
+            select cart_seq.nextval from dual
+        </selectKey>
+        insert into cart(cnum,pnum,userId,pqty,cdate)
+        values(#{cnum}, #{pnum}, #{userId}, #{pqty}, sysdate)
+    </insert>
+
+    <update id="updateCartQty" parameterType = "Cart">
+        update cart
+        <set>
+            pqty = pqty + #{pqty}
+        </set>
+        <where>
+            userId = #{userId} and pnum = #{pnum}
+        </where>
+    </update>
+
+    <!-- cart 테이블과 product 테이블을 join한 결과물을 CartMap이라는 id값을 갖는 resultMap을 통해 매핑해서 가져옴 -->
+    <select id="selectCartView" parameterType = "String" resultMap = "CartMap">
+<!--        장바구니 View를 DB에서 만들어서 사용
+            create of replace view cartView as
+            select c.*, p.pname, p.pimage1, price, salePrice, point,-->
+<!--        (c.pqty * p.salePrice) totalPrice,-->
+<!--        (c.pqty * p.point) totalPoint-->
+<!--        from cart c join product p-->
+<!--        on c.pnum = p.pnum-->
+        select * from cartView
+        <where>
+            userId = #{value}
+        </where>
+        order by cnum desc
+    </select>
+
+    <!-- join절에서 사용한 매칭정보를 CartDTO에 설정 -->
+    <resultMap id="CartMap" type="Cart">
+        <!-- db컬럼과 java object 프로퍼티 매핑
+        pk는 id 엘리먼트에 지정, 나머지는 result엘리먼트에 지정
+        property는 자바객체에의 프로퍼티명 기술
+        column은 DB 테이블의 컬럼명 기술
+        -->
+        <id property = "cnum" column = "cnum"/>
+        <result property = "userId" column = "userId"/>
+        <result property = "pnum" column = "pnum"/>
+        <result property = "pqty" column = "pqty"/>
+        <result property = "cdate" column = "cdate"/>
+        <!-- CartDTO has many products (1:N관계) ==> collection사용. CartDTO에 List<ProdcutDTO> items -->
+        <collection property="items" javaType = "java.util.ArrayList" ofType = "Product">
+            <result property = "pnum" column = "pnum"/>
+            <result property = "pimage1" column = "pimage1"/>
+            <result property = "pname" column = "pname"/>
+            <result property = "price" column = "price"/>
+            <result property = "salePrice" column = "salePrice"/>
+            <result property = "point" column = "point"/>
+            <result property = "pqty" column = "pqty"/>
+            <result property = "totalPrice" column = "totalPrice"/>
+            <result property = "totalPoint" column = "totalPoint"/>
+        </collection>
+    </resultMap>
+
+    <select id="getCartTotal" parameterType = "String" resultType = "Cart">
+        select sum(totalPrice) cartTotalPrice, sum(totalPoint) cartTotalPoint
+        from cartView where userId = #{userId}
+    </select>
+
+    <delete id="delCart" parameterType = "_int">
+        delete from cart
+        <where>
+            cnum = #{value}
+        </where>
+    </delete>
+
+    <update id="editCart" parameterType = "Cart">
+        update cart
+        <set>
+            pqty = #{pqty}
+        </set>
+        <where>
+            cnum = #{cnum}
+        </where>
+    </update>
+
 </mapper>

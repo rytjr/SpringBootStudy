@@ -19,4 +19,7 @@ public class CartDTO {
 
     //장바구니에 담긴 상품정보
     private List<ProductDTO> items;
+
+//    private String pname;
+//    private String pimage1;
 }

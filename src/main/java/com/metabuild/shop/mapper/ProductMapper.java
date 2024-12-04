@@ -14,4 +14,7 @@ public interface ProductMapper {
     List<CategoryDTO> getCategory();
     List<ProductDTO> findByCategory(int cg_code);
     int insertProduct(ProductDTO pdto);
+    List<ProductDTO> findProduct(ProductDTO pdto);
+    int deleteProduct(int pnum);
+    ProductDTO findByPnum(int pnum);
 }

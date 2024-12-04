@@ -18,4 +18,6 @@ public interface CartMapper {
     int delCart(int cartNum);
     int editCart(CartDTO cvo);
     int delCartAll(String userId);
+
+    int selectCartCountByPnum(CartDTO cartDTO);
 }
