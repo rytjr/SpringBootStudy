@@ -4,16 +4,20 @@ import com.metabuild.shop.domain.ProductDTO;
 import com.metabuild.shop.service.ProductServie;
 import com.metabuild.shop.service.ShopService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor   //생성자 인젝션
+@Slf4j
 public class ProductController {
 
     private final ShopService shopService;
@@ -56,7 +60,25 @@ public class ProductController {
     @PostMapping("/admin/product")
     public String productPostRegsitration(ProductDTO pdto, Model model) {
 
-        productService.insertProduct(pdto);
+        log.info("pdto == {}",pdto);
+
+        if(pdto.getPname().trim().isEmpty()) {
+
+            return "redirect:productRegis";
+        }
+
+        pdto.setPoint(pdto.getSalePrice());
+
+        // 현재 날짜를 java.sql.Date로 변환
+        LocalDate now = LocalDate.now(); // 현재 날짜
+        Date sqlDate = Date.valueOf(now); // LocalDate -> java.sql.Date 변환
+
+        // DTO에 날짜 설정
+        pdto.setPdate(sqlDate);
+
+        log.info("pdto2 == {}",pdto);
+
+//        productService.insertProduct(pdto);
 
         return "message";
     }

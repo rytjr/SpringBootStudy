@@ -28,7 +28,7 @@
     <div class = "login-wrap col-6 offset-3 py-4 my-4 ">
     <form method = "post" action = "/admin/product" onsubmit = "return check()">
         <h1 class = "text-center">상품 등록</h1>
-        <select>
+        <select name = "cg_code" id = "cg_code">
             <option>:카테고리 유형</option>
             <option value = 1>컴퓨터/디지털 가전</option>
             <option value = 2>생필품</option>
@@ -40,21 +40,33 @@
             </tr>
             <tr>
                 <td>상품명</td>
-                <td colsapn = "3" class = "form-control"><input type = "text" name = "productName" id = "productName"></td>
+                <td colsapn = "3" class = "form-control"><input type = "text" name = "pname" id = "pname"></td>
             </tr>
             <tr>
                 <td>상품판매가</td>
-                <td colspan = "3" class = "form-control"><input type = "text" name = "productPrice" id = "productPrice">원</td>
+                <td colspan = "3" class = "form-control"><input type = "text" name = "price" id = "price">원</td>
+            </tr>
+            <tr>
+                <td>할인된 판매가</td>
+                <td colspan = "3" class = "form-control"><input type = "text" name = "salePrice" id = "salePrice">원</td>
+            </tr>
+            <tr>
+                <td>상품 수량</td>
+                <td colspan = "3" class = "form-control"><input type = "text" name = "pqty" id = "pqty">개</td>
             </tr>
             <tr>
                 <td>상품이미지</td>
-                <td class = "form-control" name = "productImage1" id = "productImage1"><button>파일 선택</button>선택된 파일 없음</td><br>
-                <td class = "form-control" name = "productImage2" id = "productImage2"><button>파일 선택</button>선택된 파일 없음</td><br>
-                <td class = "form-control" name = "productImage3" id = "productImage3"><button>파일 선택</button>선택된 파일 없음</td><br>
+                <td class = "form-control" name = "pimage1" id = "pimage1"><button>파일 선택</button>선택된 파일 없음</td><br>
+                <td class = "form-control" name = "pimage2" id = "pimage2"><button>파일 선택</button>선택된 파일 없음</td><br>
+                <td class = "form-control" name = "pimage3" id = "pimage3"><button>파일 선택</button>선택된 파일 없음</td><br>
+            </tr>
+            <tr>
+                <td>상품 제조사</td>
+                <td colspan = "3" class = "form-control"><input type = "text" name = "pcompany" id = "pcompany"></td>
             </tr>
             <tr>
                 <td>상품설명</td>
-                <td colspan = "3" class = "form-control"><textarea name = "content" id = "content" placeholder = "Content" rows = "8" cols = "50" class = "form-control" name = "productContent" id = "productContent"></textarea></td>
+                <td colspan = "3" class = "form-control"><textarea name = "pcontents" id = "pcontents" placeholder = "Content" rows = "8" cols = "50" class = "form-control" name = "productContent" id = "productContent"></textarea></td>
             </tr>
             <tr>
                 <td>
@@ -66,34 +78,61 @@
         </table>
     </form>
     </div>
-    <script>
-        function check(){
-            let name = document.querySelector('#productName');
-            let price = document.querySelector('#productPrice');
-            let image = document.querySelector('#productImage1 input');
-            let content = document.querySelector('#productContent');
+<script>
+    function check(){
+        let name = document.querySelector('#pname');
+        let price2 = document.querySelector('#price');
+        let sale = document.querySelector('#salePrice');
+        let count = document.querySelector('#pqty');
 
-            if(name.value.trim().length == 0) {
-                alert("상품 명을 입력해 주세요");
-                name.focus();
-                return false;
-            }
-            if(price.value.trim().length == 0) {
-                alert("상품 가격을 입력해 주세요");
-                price.focus();
-                return false;
-            }
-            if(image.trim().isEmpty()) {
-                alert("첫 번째 사진을 추가해 주세요");
-                image.focus();
-                return false;
-            }
-            if(content.value.trim().length == 0) {
-                alert("상품 설명을 입력해 주세요");
-                content.focus();
-                return false;
-            }
+        // 상품명 검사
+        if(name.value.trim().length == 0) {
+            alert("상품 명을 입력해 주세요");
+            name.focus();
+            return false;
         }
-    </script>
+
+        // 상품 가격 검사
+        if(price2.value.trim().length == 0) {
+            alert("상품 가격을 입력해 주세요");
+            price2.focus();
+            return false;
+        }
+        if(isNaN(price2.value) || price2.value <= 0) { // 숫자 여부와 양수 여부 확인
+            alert("상품 가격은 숫자로 입력해 주세요");
+            price2.focus();
+            return false;
+        }
+
+        // 할인된 가격 검사
+        if(sale.value.trim().length == 0) {
+            alert("상품 할인된 가격을 입력해 주세요");
+            sale.focus();
+            return false;
+        }
+        if(isNaN(sale.value) || sale.value <= 0) { // 숫자 여부와 양수 여부 확인
+            alert("상품 할인된 가격은 숫자로 입력해 주세요");
+            sale.focus();
+            return false;
+        }
+
+        // 상품 수량 검사
+        if(count.value.trim().length == 0) {
+            alert("상품 수량을 입력해 주세요");
+            count.focus();
+            return false;
+        }
+        if(isNaN(count.value) || count.value <= 0 || !Number.isInteger(Number(count.value))) {
+            // 숫자, 양수, 정수 여부 확인
+            alert("상품 수량은 정수로 입력해 주세요");
+            count.focus();
+            return false;
+        }
+
+        // 모든 검사를 통과하면 true 반환
+        return true;
+    }
+</script>
+
 </body>
 </html>

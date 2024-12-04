@@ -28,6 +28,11 @@ public class ProductDTO {
     private int totalPrice; //총판매가 = 판매가 * 수량
     private int totalPoint; //총 포인트 = 포인트 * 수량
 
+    //포인트 계산 판매가의 1%
+    public void setPoint(int salePrice) {
+        this.point = salePrice / 100;
+    }
+
     //주문 수량이 정햐지면 총판매가, 총포인트를 연산하자
     public void setPqty(int qty){
         this.pqty = qty;
