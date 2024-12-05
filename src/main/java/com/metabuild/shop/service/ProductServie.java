@@ -11,4 +11,5 @@ public interface ProductServie {
     int updateProduct(ProductDTO pdto);
     int deleteProduct(int pnum);
     List<ProductDTO> findProduct(ProductDTO pdto);
+    int selectFile(int pnum);
 }

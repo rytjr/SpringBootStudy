@@ -27,6 +27,7 @@
 <body>
     <div class = "login-wrap col-6 offset-3 py-4 my-4 ">
     <form method = "post" action = "/admin/product" onsubmit = "return check()" enctype = "multipart/form-data">
+        <input type = "hidden" name = "mode" value = "write">
         <h1 class = "text-center">상품 등록</h1>
         <select name = "cg_code" id = "cg_code">
             <option>:카테고리 유형</option>
@@ -56,9 +57,9 @@
             </tr>
             <tr>
                 <td>상품이미지</td>
-                <td class = "form-control"><input type = "file" name = "file1" id = "pimage1"></td><br>
-                <td class = "form-control"><input type = "file" name = "file2" id = "pimage2"></td><br>
-                <td class = "form-control"><input type = "file" name = "file3" id = "pimage3"></td><br>
+                <td class = "form-control"><input type = "file" name = "fi1" id = "pimage1"></td><br>
+                <td class = "form-control"><input type = "file" name = "fi2" id = "pimage2"></td><br>
+                <td class = "form-control"><input type = "file" name = "fi3" id = "pimage3"></td><br>
             </tr>
             <tr>
                 <td>상품 제조사</td>

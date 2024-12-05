@@ -36,6 +36,8 @@
         </script>
     </c:if>
     <div class = "login-wrap col-6 offset-3 py-4 my-4 ">
+        <form action = "/admin/product" method = "post" enctype = "multipart/form-data">
+            <input type = "hidden" value = "edit" name = "mode" id = "mode">
             <h1 class = "text-center">상품정보 수정[ADMIN모드]</h1>
             <table width = "80%" height = 350px class = "table">
                 <tr>
@@ -45,7 +47,7 @@
                 <tr>
                     <td width="20%">카테고리</td>
 
-                      <td colspan="3"><select>
+                      <td colspan="3"><select id="cg_code" name = "cg_code">
                             <option>:카테고리 유형</option>
                             <option value=1>컴퓨터/디지털 가전</option>
                             <option value=2>생필품</option>
@@ -54,52 +56,60 @@
                 </tr>
                 <tr>
                     <td>상품번호</td>
-                    <td colsapn = "3" class = "form-control" name = "pnum" id = "pnum"><input type = "text" value = "<c:out value = '${productList.pnum}'/>" readonly></td>
+                    <td colsapn = "3" class = "form-control"><input name = "pnum" id = "pnum" type = "text" value = "<c:out value = '${productList.pnum}'/>" readonly></td>
                </tr>
                 <tr>
                     <td>상품명</td>
-                    <td colsapn = "3" class = "form-control" name = "pname" id = "pname"><input type = "text"></td>
+                    <td colsapn = "3" class = "form-control"><input name = "pname" id = "pname" type = "text" value = "<c:out value = '${productList.pname}'/>"></td>
                 </tr>
 
                 <tr>
                     <td>상품이미지</td>
-                    <td class="form-control" name="productImage1" id="productImage1">
-                        <img src="${image1Path != null ? image1Path : '/default-image.jpg'}" alt="Product Image 1">
-                        <img src="${image1Path != null ? image1Path : '/default-image.jpg'}" alt="Product Image 2">
-                        <img src="${image1Path != null ? image1Path : '/default-image.jpg'}" alt="Product Image 3">
+                    <td class="form-control">
+                        <img src="/product_images/${productList.file1}" alt="Product Image 1" width = "150px" height = "150px">
+                        <img src="/product_images/${productList.file2}" alt="Product Image 2" width = "150px" height = "150px">
+                        <img src="/product_images/${productList.file3}" alt="Product Image 3" width = "150px" height = "150px">
                     </td>
 
-                    <td class = "form-control" name = "productImage1" id = "productImage1"><input type="file" name="pimage"><br><input type="file" name="pimage"><br><input type="file" name="pimage"></td><br>
+                    <td class = "form-control" name = "productImage1" id = "productImage1"><input type="file" name="fi1" id = "fi1"><br><input type="file" name="fi2" id = "fi2"><br><input type="file" name="fi3" id = "fi3"></td><br>
 
                 </tr>
                 <tr>
                     <td>상품판매가</td>
-                    <td colspan = "3" class = "form-control" name = "price" id = "price"><input type = "text">원</td>
+                    <td colspan = "3" class = "form-control"><input name = "price" id = "price" type = "text" value = "<c:out value = '${productList.price}'/>">원</td>
                 </tr>
                 <tr>
                     <td>상품 할인된 판매가</td>
-                    <td colspan = "3" class = "form-control" name = "salePrice" id = "salePrice"><input type = "text">원</td>
+                    <td colspan = "3" class = "form-control"><input name = "salePrice" id = "salePrice" type = "text" value = "<c:out value = '${productList.salePrice}'/>">원</td>
                 </tr>
                 <tr>
                     <td>상품 개수</td>
-                    <td colspan = "3" class = "form-control" name = "pqty" id = "pqty"><input type = "text">개</td>
+                    <td colspan = "3" class = "form-control"><input name = "pqty" id = "pqty" type = "text" value = "<c:out value = '${productList.pqty}'/>">개</td>
                 </tr>
                 <tr>
                     <td>제조사</td>
-                    <td colspan = "3" class = "form-control" name = "pcompany" id = "pcompany"><input type = "text"></td>
+                    <td colspan = "3" class = "form-control"><input name = "pcompany" id = "pcompany" type = "text" value = "<c:out value = '${productList.pcompany}'/>"></td>
                 </tr>
                 <tr>
                     <td>상품설명</td>
-                    <td colspan = "3" class = "form-control" name = "pcontents" id = "pcontents"><textarea name = "content" id = "content" placeholder = "Content" rows = "8" cols = "50" class = "form-control"></textarea></td>
+                    <td colspan = "3" class = "form-control"><textarea  name = "pcontents" id = "pcontents" placeholder = "Content" rows = "8" cols = "50" class = "form-control">${productList.pcontents}</textarea></td>
                 </tr>
                 <tr>
                     <td colspan="4">
                         <button class="btn btn-success" style="display: inline-block; background-color: #00bcd4; border-color: #00bcd4; color: white;">상품수정</button>
-                        <button class="btn btn-warning" style="display: inline-block; background-color: #DC143C; border-color: #DC143C; color: white;">다시쓰기</button>
+                        <button type = "reset" class="btn btn-warning" style="display: inline-block; background-color: #DC143C; border-color: #DC143C; color: white;">다시쓰기</button>
                     </td>
                 </tr>
 
             </table>
+            </form>
         </div>
+
+        <script>
+            // 기본 선택할 값 설정
+            const selectedValue = "${productList.cg_code}"; // 동적으로 설정하려는 값
+            const selectElement = document.getElementById("cg_code");
+            selectElement.value = selectedValue;
+        </script>
 </body>
 </html>

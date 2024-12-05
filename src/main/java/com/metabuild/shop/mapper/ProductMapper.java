@@ -17,4 +17,6 @@ public interface ProductMapper {
     List<ProductDTO> findProduct(ProductDTO pdto);
     int deleteProduct(int pnum);
     ProductDTO findByPnum(int pnum);
+    int updateProduct(ProductDTO pdto);
+    int selectFile(int pnum);
 }

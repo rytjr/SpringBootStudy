@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductServie {
 
     @Override
     public int updateProduct(ProductDTO pdto) {
-        return 0;
+        return productMapper.updateProduct(pdto);
     }
 
     @Override
@@ -36,5 +36,10 @@ public class ProductServiceImpl implements ProductServie {
     @Override
     public List<ProductDTO> findProduct(ProductDTO pdto) {
         return productMapper.findProduct(pdto);
+    }
+
+    @Override
+    public int selectFile(int pnum) {
+        return productMapper.selectFile(pnum);
     }
 }

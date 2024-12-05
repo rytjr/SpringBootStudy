@@ -31,6 +31,12 @@ public class ProductDTO {
     private int totalPrice; //총판매가 = 판매가 * 수량
     private int totalPoint; //총 포인트 = 포인트 * 수량
 
+    private String mode;
+
+    private String file1;
+    private String file2;
+    private String file3;
+
     //포인트 계산 판매가의 1%
     public void setPoint(int salePrice) {
         this.point = salePrice / 100;

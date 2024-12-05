@@ -68,8 +68,8 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product")
-    public String productPostRegsitration(ProductDTO pdto, Model model, @RequestParam("file1") MultipartFile pimage1,
-                                          @RequestParam("file2") MultipartFile pimage2, @RequestParam("file3") MultipartFile pimage3) {
+    public String productPostRegsitration(ProductDTO pdto, Model model, @RequestParam("fi1") MultipartFile pimage1,
+                                          @RequestParam("fi2") MultipartFile pimage2, @RequestParam("fi3") MultipartFile pimage3) {
 
         log.info("pdto == {}",pdto);
 
@@ -138,12 +138,52 @@ public class ProductController {
         // DTO에 날짜 설정
         pdto.setPdate(sqlDate);
 
+        //예전에 업로드했던 파일이 있따면 서버에서 삭제 처리
+        if("edit".equals(pdto.getMode())) {   //수정 모드라면
+            if(pdto.getPimage1Fn() != null) {
+                File tmp = new File(product_upload, pdto.getPimage1Fn());
+                if(tmp.exists()) {
+                    boolean b = tmp.delete();   //파일 삭제 처리
+                    log.info("예전 첨부파일 삭제 여부 == {}" , b);
+                }
+            }
+        }
+        if("edit".equals(pdto.getMode())) {   //수정 모드라면
+            if(pdto.getPimage3Fn() != null) {
+                File tmp = new File(product_upload, pdto.getPimage3Fn());
+                if(tmp.exists()) {
+                    boolean b = tmp.delete();   //파일 삭제 처리
+                    log.info("예전 첨부파일 삭제 여부 == {}" , b);
+                }
+            }
+        }
+        if("edit".equals(pdto.getMode())) {   //수정 모드라면
+            if(pdto.getPimage2Fn() != null) {
+                File tmp = new File(product_upload, pdto.getPimage2Fn());
+                if(tmp.exists()) {
+                    boolean b = tmp.delete();   //파일 삭제 처리
+                    log.info("예전 첨부파일 삭제 여부 == {}" , b);
+                }
+            }
+        }
+
         log.info("pdto2 == {}",pdto);
 
-        int n = productService.insertProduct(pdto);
+        String str = "실패";
+        String loc = "javascript:history.back()";
+        int n = 0;
 
-        String str = (n > 0) ? "상품 등록 성공" : "상품 등록 실패";
-        String loc = (n > 0) ? "/admin/productList" : "redirect:productRegis";
+        if(pdto.getMode().equals("write")) {
+            n = productService.insertProduct(pdto);
+
+            str = (n > 0) ? "상품 등록 성공" : "상품 등록 실패";
+            loc = (n > 0) ? "/admin/productList" : "redirect:productRegis";
+        } else if(pdto.getMode().equals("edit")) {
+            n = productService.updateProduct(pdto);
+
+            str = (n > 0) ? "상품 수정 성공" : "상품 수정 실패";
+            loc = (n > 0) ? "/admin/productList" : "redirect:productEdit";
+        }
 
         model.addAttribute("message", str);
         model.addAttribute("loc",loc);
@@ -214,9 +254,11 @@ public class ProductController {
             return "redirect:/admin/productList";
         }
 
-        log.info("수정 == {}", "수정");
+
 
         ProductDTO n = productService.findByPnum(pnum);
+
+        log.info("수정 == {}", n);
 
         model.addAttribute("productList", n);
 

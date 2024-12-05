@@ -38,11 +38,27 @@
     </delete>
 
     <select id="findByPnum" parameterType = "_int" resultType = "Product">
-        select * from product
+        select pnum, pname, pimage1, pimage2, pimage3,pimage1Fn,pimage2Fn,pimage3Fn,  price, salePrice, pqty, point, pspec, pcontents, pcompany, pdate, cg_code,
+        NVL(pimage1Fn, 'noimage.PNG') file1,
+        NVL(pimage2Fn, 'noimage.PNG') file2,NVL(pimage3Fn, 'noimage.PNG') file3 from product
         <where>
             pnum = #{pnum}
         </where>
     </select>
+
+    <update id="updateProduct" parameterType = "Product">
+        update product
+        <set>
+            pname = #{pname}, price = #{price}, salePrice = #{salePrice}, pqty = #{pqty},
+            point = #{point}, pcompany = #{pcompany:VARCHAR}, pcontents = #{pcontents:VARCHAR},
+            cg_code = #{cg_code:NUMERIC}, pimage1 = #{pimage1:VARCHAR}, pimage2 = #{pimage2:VARCHAR}, pimage3 = #{pimage3:VARCHAR}
+            , pimage1Fn = #{pimage1Fn:VARCHAR}, pimage2Fn = #{pimage2Fn:VARCHAR}, pimage3Fn = #{pimage3Fn:VARCHAR}
+        </set>
+        <where>
+            pnum = #{pnum}
+        </where>
+    </update>
+
 
 </mapper>
 
