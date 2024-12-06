@@ -140,8 +140,8 @@ public class ProductController {
 
         //예전에 업로드했던 파일이 있따면 서버에서 삭제 처리
         if("edit".equals(pdto.getMode())) {   //수정 모드라면
-            if(pdto.getPimage1Fn() != null) {
-                File tmp = new File(product_upload, pdto.getPimage1Fn());
+            if(pdto.getFile1() != null) {
+                File tmp = new File(product_upload, pdto.getFile1());
                 if(tmp.exists()) {
                     boolean b = tmp.delete();   //파일 삭제 처리
                     log.info("예전 첨부파일 삭제 여부 == {}" , b);
@@ -149,8 +149,8 @@ public class ProductController {
             }
         }
         if("edit".equals(pdto.getMode())) {   //수정 모드라면
-            if(pdto.getPimage3Fn() != null) {
-                File tmp = new File(product_upload, pdto.getPimage3Fn());
+            if(pdto.getFile2() != null) {
+                File tmp = new File(product_upload, pdto.getFile2());
                 if(tmp.exists()) {
                     boolean b = tmp.delete();   //파일 삭제 처리
                     log.info("예전 첨부파일 삭제 여부 == {}" , b);
@@ -158,8 +158,8 @@ public class ProductController {
             }
         }
         if("edit".equals(pdto.getMode())) {   //수정 모드라면
-            if(pdto.getPimage2Fn() != null) {
-                File tmp = new File(product_upload, pdto.getPimage2Fn());
+            if(pdto.getFile3() != null) {
+                File tmp = new File(product_upload, pdto.getFile3());
                 if(tmp.exists()) {
                     boolean b = tmp.delete();   //파일 삭제 처리
                     log.info("예전 첨부파일 삭제 여부 == {}" , b);

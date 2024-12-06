@@ -22,9 +22,9 @@
         --%>
             <div class="col-3 text-center">
                 <c:choose>
-                    <c:when test="${item.pimage1 ne null}">
+                    <c:when test="${item.pimage1Fn ne null}">
                         <a href="prodDetail?pnum=<c:out value='${item.pnum}'/>">
-                            <img src="/product_images/${item.pimage1}" alt="${item.pname}" class="img-fluid" style="width:180px; height:180px; object-fit:contain">
+                            <img src="/product_images/${item.pimage1Fn}" alt="${item.pname}" class="img-fluid" style="width:180px; height:180px; object-fit:contain">
                         </a>
                     </c:when>
                     <c:otherwise>

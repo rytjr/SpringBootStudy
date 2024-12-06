@@ -66,12 +66,12 @@
                 <tr>
                     <td>상품이미지</td>
                     <td class="form-control">
-                        <img src="/product_images/${productList.file1}" alt="Product Image 1" width = "150px" height = "150px">
-                        <img src="/product_images/${productList.file2}" alt="Product Image 2" width = "150px" height = "150px">
-                        <img src="/product_images/${productList.file3}" alt="Product Image 3" width = "150px" height = "150px">
+                        <img src="/product_images/${productList.file1}" alt="Product Image 1" width = "150px" height = "150px"><input type = "hidden" name = "file1" value = "${productList.file1}">
+                        <img src="/product_images/${productList.file2}" alt="Product Image 2" width = "150px" height = "150px"><input type = "hidden" name = "file2" value = "${productList.file2}">
+                        <img src="/product_images/${productList.file3}" alt="Product Image 3" width = "150px" height = "150px"><input type = "hidden" name = "file3" value = "${productList.file3}">
                     </td>
 
-                    <td class = "form-control" name = "productImage1" id = "productImage1"><input type="file" name="fi1" id = "fi1"><br><input type="file" name="fi2" id = "fi2"><br><input type="file" name="fi3" id = "fi3"></td><br>
+                    <td class = "form-control"><input type="file" name="fi1" id = "pimage1"><br><input type="file" name="fi2" id = "fi2"><br><input type="file" name="fi3" id = "fi3"></td><br>
 
                 </tr>
                 <tr>
