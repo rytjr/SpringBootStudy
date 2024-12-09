@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<h3 class="text-danger my-4 text-center"><a href="/shop/productRegis">상품 등록 하기</a></h3>
+<h3 class="text-danger my-4 text-center"><a href="/admin/product">상품 등록 하기</a></h3>
 <div>
-    <form name="findF" id="findF" action="list">
-        <input type="text" name="findProdByKeyword" id="findProdByKeyword" style="padding:4px" placeholder="상품명을 입력하세요" required>
+    <form name="findF" id="findF" action="/admin/search">
+        <input type="text" name="keyword" id="keyword" style="padding:4px" placeholder="상품명을 입력하세요" required>
         <button class="btn btn-info">검   색</button>
     </form>
 </div>
@@ -36,6 +36,12 @@
                 <br><br>
                 <h5>
                     <c:out value="${item.pname}"/>
+                </h5>
+                <h5>
+                <del><c:out value="${item.price}" /></del>
+                </h5>
+                <h5 style="color: red;">
+                    <c:out value="${item.salePrice}"/>
                 </h5>
                 <span class="badge bg-success">${item.point} Point</span><br>
                 <a href="/admin/prodEdit?pnum=${item.pnum}">수정</a> |

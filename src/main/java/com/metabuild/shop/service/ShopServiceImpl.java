@@ -93,4 +93,9 @@ public class ShopServiceImpl implements ShopService {
     public CartDTO getCartTotal(String userid) {
         return cartMapper.getCartTotal(userid);
     }
+
+    @Override
+    public List<ProductDTO> findByPname(String pname) {
+        return productMapper.findByPname(pname);
+    }
 }

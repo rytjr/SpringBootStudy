@@ -59,6 +59,16 @@
         </where>
     </update>
 
+    <select id="findByPname" parameterType="string" resultType="Product">
+        select * from product
+        <where>
+            <if test="keyword != null and keyword != ''">
+                pname like '%' || #{keyword} || '%'
+            </if>
+        </where>
+    </select>
+
+
 
 </mapper>
 

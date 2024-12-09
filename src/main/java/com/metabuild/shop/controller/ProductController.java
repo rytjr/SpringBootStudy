@@ -266,5 +266,14 @@ public class ProductController {
         return "/shop/productEdit";
     }
 
+    @GetMapping("/admin/search") // PROJECT
+    public String search(Model m, String keyword) // PROJECT
+    {
+        log.info("keyword==={}", keyword); // PROJECT
+        List<ProductDTO> searchList = shopService.findByPname(keyword);
+        m.addAttribute("prodcutList", searchList);
+        return "shop/productList"; // PROJECT
+    } // PROJECT
+
 
 }

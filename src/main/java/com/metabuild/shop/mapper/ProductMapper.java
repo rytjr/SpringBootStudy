@@ -19,4 +19,5 @@ public interface ProductMapper {
     ProductDTO findByPnum(int pnum);
     int updateProduct(ProductDTO pdto);
     int selectFile(int pnum);
+    List<ProductDTO> findByPname(String Pname);
 }

@@ -27,4 +27,6 @@ public interface ShopService {
 
     CartDTO getCartTotal(String userid);//특정 회원의 장바구니 총액,총포인트 구하기
 
+    public List<ProductDTO> findByPname(String pname);
+
 }
