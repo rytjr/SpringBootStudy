@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-//컨트롤러 어노테이션
 @Controller
 public class HomeController {
     //field Injection
