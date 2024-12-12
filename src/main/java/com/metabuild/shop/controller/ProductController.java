@@ -67,6 +67,7 @@ public class ProductController {
         return "shop/productRegis";
     }
 
+    //RequestParam은 직접 매핑
     @PostMapping("/admin/product")
     public String productPostRegsitration(ProductDTO pdto, Model model, @RequestParam("fi1") MultipartFile pimage1,
                                           @RequestParam("fi2") MultipartFile pimage2, @RequestParam("fi3") MultipartFile pimage3) {
