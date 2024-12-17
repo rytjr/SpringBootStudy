@@ -126,7 +126,7 @@ public class MemberController {
         return "/auth/myPage";
     }
 
-    @PostMapping("/auth/mypage")
+    @PostMapping("/auth/myPage")
     public String postMyPage(){
         return "message";
     }
