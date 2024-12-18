@@ -127,8 +127,13 @@ public class MemberController {
     }
 
     @PostMapping("/auth/myPage")
-    public String postMyPage(){
-        return "message";
+    public String postMyPage(MemberDTO member) {
+
+        log.info("member : {}", member);
+
+        memberSercive.updateMember(member);
+
+        return "redirect:/auth/myPage";
     }
 
 }

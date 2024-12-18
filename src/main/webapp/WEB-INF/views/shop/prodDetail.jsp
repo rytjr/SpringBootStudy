@@ -23,8 +23,8 @@
       <c:if test = "${item ne null}">
       <tr>
          <td align="center" width="50%"><a href="#"
-            onclick="openPop('${item.pimage1}')">
-            <img src="/product_images/${item.pimage1}" class="img-fluid"
+            onclick="openPop('${item.pimage1Fn}')">
+            <img src="/product_images/${item.pimage1Fn}" class="img-fluid"
                style="width: 70%;"> <!-- </a> -->
          </a></td>
          <td align="left" width="50%" style="padding-left: 40px">
@@ -60,9 +60,9 @@
       </tr>
 
       <tr style="border: 0">
-         <td align="center"><img src="/product_images/${item.pimage2}"
+         <td align="center"><img src="/product_images/${item.pimage2Fn}"
             class="img img-thumbnail" style="width: 70%;"></td>
-         <td align="center"><img src="/product_images/${item.pimage3}"
+         <td align="center"><img src="/product_images/${item.pimage3Fn}"
             class="img img-thumbnail" style="width: 70%;"></td>
       </tr>
       <tr>

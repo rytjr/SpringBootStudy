@@ -22,6 +22,7 @@ public interface MemberMapper {
     int getMemberCount();    //전체 회원수
     List<MemberDTO> listMember();    //회원목록
     int deleteMember(int no);
+    int updateMember(MemberDTO user);
 
 
     MemberDTO findByUserId(String userId);

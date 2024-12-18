@@ -68,7 +68,6 @@
                    <td>
                    <fmt:formatNumber value = "${cdto.items[0].salePrice}" pattern = "###,###"/>
                    원<br>
-                   <span class="badge bg-danger">${cdto.items[0].point}</span>POINT
                    </td>
                    <td>
                    <fmt:formatNumber value = "${cdto.items[0].totalPrice}" pattern = "###,###" />

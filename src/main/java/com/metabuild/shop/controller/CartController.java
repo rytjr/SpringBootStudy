@@ -74,4 +74,14 @@ public class CartController {
 
         return "redirect:cart";
     }
+
+    @GetMapping("/wishList")
+    public String wishList(HttpSession session, Model model) {
+
+        log.info("session : {}", (MemberDTO)session.getAttribute("loginUser"));
+
+        int pkNo = ((MemberDTO)session.getAttribute("loginUser")).getNo();
+
+        return "message";
+    }
 }

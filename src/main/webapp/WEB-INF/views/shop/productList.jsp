@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<h3 class="text-danger my-4 text-center"><a href="/admin/product">상품 등록 하기</a></h3>
+<h3 class="text-danger my-4 text-center"><a href="/admin/product">상품 등록하러 가기</a></h3>
 <div>
     <form name="findF" id="findF" action="/admin/search">
         <input type="text" name="keyword" id="keyword" style="padding:4px" placeholder="상품명을 입력하세요" required>

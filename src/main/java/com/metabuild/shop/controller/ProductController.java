@@ -46,7 +46,7 @@ public class ProductController {
     }
 
     @GetMapping("/prodDetail")
-    public String productDetail(@RequestParam(defaultValue = "0")int pnum, Model model){
+    public String productDetail(@RequestParam(defaultValue = "0") int pnum, Model model){
 
         if(pnum == 0) {
             return "redirect:/mall";

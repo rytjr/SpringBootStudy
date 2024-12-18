@@ -63,7 +63,7 @@ public class MemberServiceImpl implements MemberSercive{
 
     @Override
     public int updateMember(MemberDTO user) {
-        return 0;
+        return memberMapper.updateMember(user);
     }
 
     @Override
