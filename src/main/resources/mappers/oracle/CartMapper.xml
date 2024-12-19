@@ -93,4 +93,31 @@
         </where>
     </update>
 
+    <insert id="insertWish" parameterType = "_int">
+        <selectKey keyProperty = "id" resultType = "_int" order = "BEFORE">
+            select wish_seq.nextval from dual
+        </selectKey>
+        insert into wish (id,no,pnum)
+        values(#{id}, #{no}, #{pnum})
+    </insert>
+
+    <select id="selectWish" parameterType = "_int" resultType = "_int">
+        select count(*) from wish
+        <where>
+            no = #{no} and pnum = #{pnum}
+        </where>
+    </select>
+
+
+    <select id="listWish" parameterType="int" resultType="Product">
+        SELECT w.pnum, p.pname, p.price, p.salePrice
+        FROM wish w
+        JOIN product p ON w.pnum = p.pnum
+        <where>
+            w.no = #{no}
+        </where>
+    </select>
+
+
+
 </mapper>

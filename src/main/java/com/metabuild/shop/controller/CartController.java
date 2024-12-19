@@ -1,6 +1,8 @@
 package com.metabuild.shop.controller;
 
 import com.metabuild.shop.domain.CartDTO;
+import com.metabuild.shop.domain.ProductDTO;
+import com.metabuild.shop.domain.WishDTO;
 import com.metabuild.shop.service.ShopService;
 import com.metabuild.user.domain.MemberDTO;
 import jakarta.servlet.http.HttpSession;
@@ -76,12 +78,44 @@ public class CartController {
     }
 
     @GetMapping("/wishList")
-    public String wishList(HttpSession session, Model model) {
+    public String wishList(Model model, HttpSession session) {
 
-        log.info("session : {}", (MemberDTO)session.getAttribute("loginUser"));
+        int no = ((MemberDTO)session.getAttribute("loginUser")).getNo();
 
-        int pkNo = ((MemberDTO)session.getAttribute("loginUser")).getNo();
+        List<WishDTO> wishList = shopService.listWish(no);
 
+        model.addAttribute("wishList", wishList);
+
+        return "/shop/wish";
+    }
+
+    @PostMapping("/wish")
+    public String wish(ProductDTO productDTO, HttpSession session, Model model) {
+
+        int pnum = productDTO.getPnum();
+        int no = ((MemberDTO)session.getAttribute("loginUser")).getNo();
+
+        log.info("no,pnum = {},{}",no,pnum);
+
+        String str = "실패";
+        String loc = "redirect:history.back()";
+
+        int t = shopService.selectWish(no,pnum);
+        if(t > 0) {
+            str = "위시리스트에 이미 존재합니다.";
+            loc = "/mall";
+            model.addAttribute("message", str);
+            model.addAttribute("loc",loc);
+            return "message";
+        }
+
+        int n = shopService.insertWish(no, pnum);
+
+
+        str = (n > 0) ? "위시리스트 추가 성공" : "위시리스트 추가 실패";
+        loc = (n > 0) ? "/mall" : "redirect:history.back()";
+        model.addAttribute("message", str);
+        model.addAttribute("loc",loc);
         return "message";
     }
 }

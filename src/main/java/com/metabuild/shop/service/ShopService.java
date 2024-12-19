@@ -2,6 +2,7 @@ package com.metabuild.shop.service;
 
 import com.metabuild.shop.domain.CartDTO;
 import com.metabuild.shop.domain.ProductDTO;
+import com.metabuild.shop.domain.WishDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -28,5 +29,8 @@ public interface ShopService {
     CartDTO getCartTotal(String userid);//특정 회원의 장바구니 총액,총포인트 구하기
 
     public List<ProductDTO> findByPname(String pname);
+    int insertWish(int no, int pnum);
+    int selectWish(int no, int pnum);
+    List<WishDTO> listWish(int no);
 
 }

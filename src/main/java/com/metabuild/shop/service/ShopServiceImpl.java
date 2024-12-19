@@ -2,6 +2,7 @@ package com.metabuild.shop.service;
 
 import com.metabuild.shop.domain.CartDTO;
 import com.metabuild.shop.domain.ProductDTO;
+import com.metabuild.shop.domain.WishDTO;
 import com.metabuild.shop.mapper.CartMapper;
 import com.metabuild.shop.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
@@ -97,5 +98,20 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public List<ProductDTO> findByPname(String pname) {
         return productMapper.findByPname(pname);
+    }
+
+    @Override
+    public int insertWish(int no, int pnum) {
+        return cartMapper.insertWish(no, pnum);
+    }
+
+    @Override
+    public int selectWish(int no, int pnum) {
+        return cartMapper.selectWish(no,pnum);
+    }
+
+    @Override
+    public List<WishDTO> listWish(int no) {
+        return cartMapper.listWish(no);
     }
 }

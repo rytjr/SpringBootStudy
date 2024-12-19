@@ -1,6 +1,7 @@
 package com.metabuild.shop.mapper;
 
 import com.metabuild.shop.domain.CartDTO;
+import com.metabuild.shop.domain.WishDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface CartMapper {
     int delCartAll(String userId);
 
     int selectCartCountByPnum(CartDTO cartDTO);
+
+    int insertWish(int no, int pnum);
+    int selectWish(int no, int pnum);
+    List<WishDTO> listWish(int no);
 }
