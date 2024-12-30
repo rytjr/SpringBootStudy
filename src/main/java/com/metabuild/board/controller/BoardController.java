@@ -43,6 +43,8 @@ public class BoardController {
     @GetMapping("/list")
     public String boardList(Model model, PagingDTO paging) {
 
+        String test = "";
+
         //1. 총 게시글 수 가져오기
         int totalCount = boardService.getTotalCount(paging);
         paging.setTotalCount(totalCount);

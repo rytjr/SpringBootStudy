@@ -33,7 +33,6 @@
             </del><br>
             <span class = "text-danger">${item.salePrice}원</span><br>
             <span class = "badge bg-danger">${item.percent} %</span><br>
-            <span class = "badge bg-success">${item.point} Point</span>
         </div>  <!-- col-3.end -->
         <c:if test = "${state.count mod 4 == 0}">
         <!-- 행을 닫고 새로운 행을 시작 -->

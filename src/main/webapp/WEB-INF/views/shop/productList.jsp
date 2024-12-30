@@ -43,7 +43,6 @@
                 <h5 style="color: red;">
                     <c:out value="${item.salePrice}"/>
                 </h5>
-                <span class="badge bg-success">${item.point} Point</span><br>
                 <a href="/admin/prodEdit?pnum=${item.pnum}">수정</a> |
                 <a href="/admin/prodDelete?pnum=${item.pnum}">삭제</a>
             </div><!-- .col-3 end -->

@@ -20,7 +20,7 @@
 <body>
 
     <div id = "header" class = "bg-primary text-white text-center p-5">
-        <h1>MetaBuild Home</h1>
+        <h1>React Project Home</h1>
         <p>Welcome to Home</p>
 
     </div>
