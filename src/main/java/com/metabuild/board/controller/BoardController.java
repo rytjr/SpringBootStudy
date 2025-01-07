@@ -36,6 +36,7 @@ public class BoardController {
     public String boardForm() {
 
         log.info("uploadDIr == {}",uploadDir);
+        log.info("uploadDIr == {}",uploadDir);
 
         return "board/write";
     }
